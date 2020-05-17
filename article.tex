@@ -38,24 +38,24 @@
 Quality is a complex attribute of a software product. It consists of
 multiple ingredients, including the absence of functionality defects,
 high performance, data consistency, time to recover after failure, and
-many others. Maintainability is one them, which is recently becoming
+many others. Maintainability is one them, which has recently become
 more important than it was before, mostly because the cost of
 human resources is getting higher every year, while the cost of
 computational resources decreases, as was explained by~\citet{yb-hacking}.
-New methods are required to analyze software projects, evaluate their
+Because of that, new methods are required to analyze software projects, evaluate their
 maintainability, and give programmers effective recommendations on
-how maintainability issues can be fixed. One of such methods is proposed
+how maintainability issues can be fixed. A method of this kind is proposed
 below.
 \end{abstract}
 \maketitle
 
 \section{Introduction}
 
-The method suggested below may be used to analyze the quality
+The suggested method may be used to analyze the quality
 of a software project, taking into account a few important
-measurable factors, such as the consistency and effectiveness of
-used programming practices, the soundness and solidness of the
-architecture, the quality of documentation, and so on.
+measurable factors, such as consistency and effectiveness of
+used programming practices, soundness and solidness of the
+architecture, quality of documentation, and so on.
 
 The method has been tested on a number of projects, both
 open source and commercial. It was first proposed by~\citet{yb-sins}
@@ -81,7 +81,7 @@ To be written...
 \label{sec:method}
 
 The method combines automated and manual techniques. There are $N$
-\emph{metrics} to be made for a software project, which are described
+\emph{metrics} to be observed and collected on a software project, which are described
 below. Each metric is an integer between zero and ten, where
 zero means the lowest quality, while ten means the highest one:
 
@@ -91,7 +91,7 @@ M_{1..N} \in [ 0 .. 10 ]
 
 Each metric has its own \emph{weight} $W_{1..N}$.
 The final \emph{score} is calculated
-as a weighted arithmetic summary of all measurements $M_i$:
+as a weighed arithmetic summary of all measurements $M_i$:
 
 \begin{align}
 S = \frac{\sum_i^N M_i \times W_i}{\sum_i^N W_i}
@@ -105,10 +105,11 @@ The following metrics are used in the method:
 
 \subsection{M1: Programming Practices (W=1.0)}
 
-This metric is one of the most important for the code quality and readability.
-It is related to exception handling, resource leakage, memory overflow,
-naming conventions, classe and method length, code complexity,
-broken call chains, method parameters, declaration of variables and constants,
+This metric is one of the most important for the code quality and error-proneness.
+It is supposed to spot mistakes in exception handling, resource allocation, memory overflow control,
+naming conventions, classe and method length control, code complexity,
+validity of call chains, validation of input method parameters,
+declaration of variables and constants,
 and so on. This is an incomplete lists of checks to do:
 
 \begin{itemize}
@@ -116,8 +117,9 @@ and so on. This is an incomplete lists of checks to do:
 \item Exceptions are not swallowed;
 \item Objects are thread-safe, where necessary;
 \item Language naming conventions are obeyed;
-\item There are no redundant empty lines~\citet{yb-empty-lines}.
-\item There are no redundant exception catchers~\citep{yb-dont-catch}
+\item The usage of NULL references is minimized~\citet{yb-null};
+\item There are no redundant empty lines~\citet{yb-empty-lines};
+\item There are no redundant exception catchers~\citep{yb-dont-catch}.
 \end{itemize}
 
 \subsection{M2: Architecture and Design (W=1.0)}
@@ -129,14 +131,17 @@ to modify, read, and support. This is an incomplete lists of
 checks to do:
 
 \begin{itemize}
-\item Design patterns are used correctly~\citep{gamma1993design,holub2004holub,freeman2008head,fowler2003patterns}
-\item Anti-patterns are absent~\citep{jaafar2013mining}
-\item Classes cohesion is high
-\item Frameworks and are used where possible
-\item Objects are immutable where it's possible~\citep{yb-immutability}
-\item There are no global variables~\citep{yb-global-vars}
-\item DTO usage is minimized~\citep{yb-dto}
-\item Utility classes are not used~\citet{yb-utility}
+\item Design patterns are used correctly~\citep{gamma1993design,holub2004holub,freeman2008head,fowler2003patterns};
+\item Anti-patterns are absent~\citep{jaafar2013mining};
+\item Classes are short and their cohesion is high;
+\item Frameworks are used where possible;
+\item Procedural anti-patterns are avoided in OOP code~\citep{yb-er};
+\item Explicit class casting is being avoided~\citep{yb-casting};
+\item The usage of getters and setters is minimal~\citep{yb-getters};
+\item Objects are immutable where possible~\citep{yb-immutability};
+\item There are no global variables~\citep{yb-global-vars};
+\item DTO usage is minimized~\citep{yb-dto};
+\item Utility classes are not used~\citet{yb-utility}.
 \end{itemize}
 
 \subsection{M3: Test Coverage (W=0.8)}
@@ -147,10 +152,12 @@ the information provided by test coverage collectors. The metric judges
 the quality of tests and the existence of test coverage analysis. A reviewer
 must pay attention to the following practices:
 
-  * Unit and integration tests are written;
-  * Test coverage is calculated on each build, and published;
-  * Test anti-patterns are absent~\citep{yb-test-anti};
-  * Mutation coverage is controlled~\citep{andrews2006using};
+\begin{itemize}
+  \item Unit and integration tests are written;
+  \item Test coverage is calculated on each build, and published;
+  \item Test anti-patterns are absent~\citep{yb-test-anti};
+  \item Mutation coverage is controlled~\citep{andrews2006using}.
+\end{itemize}
 
 \subsection{M4: Static Analysis (W=0.8)}
 
@@ -173,14 +180,16 @@ Version Control Systems (VCS) and Continious Integration/Delivery (CI/CD) system
 software engineers properly understand their functionality. For example, this is what
 a reviewer must pay attention to:
 
-  * CI/CD pipelines are automated;
-  * Release procedure is automated;
-  * Releases are frequent and fully documented;
-  * Git commits have detailed comments;
-  * Each code change is traceable to a bug report or a task;
-  * All changes get into the trunk after manual reviews;
-  * The trunk (e.g. Git ``master'' branch) is read-only;
-  * Forced ``push'' is not used and code is never deleted;
+\begin{itemize}
+  \item CI/CD pipelines are automated;
+  \item Release procedure is automated;
+  \item Releases are frequent and fully documented;
+  \item Git commits have detailed comments;
+  \item Each code change is traceable to a bug report or a task;
+  \item All changes get into the trunk after manual reviews;
+  \item The trunk (e.g. Git ``master'' branch) is read-only;
+  \item Forced ``push'' is not used and code is never deleted;
+\end{itemize}
 
 The metric doesn't judge the choice of the tools (sometimes this decision
 is not made by the team itself), but only validates the correctness
