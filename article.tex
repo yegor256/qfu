@@ -1,0 +1,205 @@
+% The MIT License (MIT)
+%
+% Copyright (c) 2020 Yegor Bugayenko
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to deal
+% in the Software without restriction, including without limitation the rights
+% to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included
+% in all copies or substantial portions of the Software.
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+% OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+% SOFTWARE.
+\documentclass[manuscript,12pt,nonacm=true,oneside]{acmart}
+\title{A Multi-Factor Method of Measuring the Quality of a Software Project}
+\author{Yegor Bugayenko}
+\email{yegor.bugayenko@huawei.com}
+\author{Ilya Moskvitin}
+\email{ilya.moskvitin@huawei.com}
+\authorsaddresses{}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\begin{document}
+\setlength{\topskip}{6pt}
+\setlength{\parindent}{0pt} % indent first line
+\setlength{\parskip}{6pt} % before par
+
+\begin{abstract}
+Quality is a complex attribute of a software product. It consists of
+multiple ingredients, including the absence of functionality defects,
+high performance, data consistency, time to recover after failure, and
+many others. Maintainability is one them, which is recently becoming
+more important than it was before, mostly because the cost of
+human resources is getting higher every year, while the cost of
+computational resources decreases, as was explained by~\citet{yb-hacking}.
+New methods are required to analyze software projects, evaluate their
+maintainability, and give programmers effective recommendations on
+how maintainability issues can be fixed. One of such methods is proposed
+below.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+The method suggested below may be used to analyze the quality
+of a software project, taking into account a few important
+measurable factors, such as the consistency and effectiveness of
+used programming practices, the soundness and solidness of the
+architecture, the quality of documentation, and so on.
+
+The method has been tested on a number of projects, both
+open source and commercial. It was first proposed by~\citet{yb-sins}
+as a method of measuring the quality of open source projects developed
+by freelancers. Since then, over 200 GitHub repositories were
+analyzed by over 40 reviewers and their analysis results were published
+at~\citep{yb-award}.
+
+The paper is organized as follows.
+Section~\ref{sec:related} covers related work in the area of quality analysis
+of software projects.
+Section~\ref{sec:method} explains the method, giving instructions
+to project reviewers.
+Finally, Section~\ref{sec:discussion} identifies validity threats and suggests
+alternatives to the metrics explained in the Section~\ref{sec:method}.
+
+\section{Related Work}
+\label{sec:related}
+
+To be written...
+
+\section{Method}
+\label{sec:method}
+
+The method combines automated and manual techniques. There are $N$
+\emph{metrics} to be made for a software project, which are described
+below. Each metric is an integer between zero and ten, where
+zero means the lowest quality, while ten means the highest one:
+
+\begin{eqnarray}
+M_{1..N} \in [ 0 .. 10 ]
+\end{eqnarray}
+
+Each metric has its own \emph{weight} $W_{1..N}$.
+The final \emph{score} is calculated
+as a weighted arithmetic summary of all measurements $M_i$:
+
+\begin{align}
+S = \frac{\sum_i^N M_i \times W_i}{\sum_i^N W_i}
+\end{align}
+
+A group of at least two independent software developers is asked to review the code
+repository and provide their scores as $S_1$ and $S_2$. The average between
+them is the final score of the project.
+
+The following metrics are used in the method:
+
+\subsection{M1: Programming Practices (W=1.0)}
+
+This metric is one of the most important for the code quality and readability.
+It is related to exception handling, resource leakage, memory overflow,
+naming conventions, classe and method length, code complexity,
+broken call chains, method parameters, declaration of variables and constants,
+and so on. This is an incomplete lists of checks to do:
+
+\begin{itemize}
+\item There are no empty exception handlers;
+\item Exceptions are not swallowed;
+\item Objects are thread-safe, where necessary;
+\item Language naming conventions are obeyed;
+\item There are no redundant empty lines~\citet{yb-empty-lines}.
+\item There are no redundant exception catchers~\citep{yb-dont-catch}
+\end{itemize}
+
+\subsection{M2: Architecture and Design (W=1.0)}
+
+The metric evaluate how sould are the key technical decisions made
+in the project. It is assumed that the best technical decision is the
+one that leads to the most maintainable software, which will be easier
+to modify, read, and support. This is an incomplete lists of
+checks to do:
+
+\begin{itemize}
+\item Design patterns are used correctly~\citep{gamma1993design,holub2004holub,freeman2008head,fowler2003patterns}
+\item Anti-patterns are absent~\citep{jaafar2013mining}
+\item Classes cohesion is high
+\item Frameworks and are used where possible
+\item Objects are immutable where it's possible~\citep{yb-immutability}
+\item There are no global variables~\citep{yb-global-vars}
+\item DTO usage is minimized~\citep{yb-dto}
+\item Utility classes are not used~\citet{yb-utility}
+\end{itemize}
+
+\subsection{M3: Test Coverage (W=0.8)}
+
+There are many different tool on the market to estimate test code coverage,
+create unit and integration tests, and improve the quality of code using
+the information provided by test coverage collectors. The metric judges
+the quality of tests and the existence of test coverage analysis. A reviewer
+must pay attention to the following practices:
+
+  * Unit and integration tests are written;
+  * Test coverage is calculated on each build, and published;
+  * Test anti-patterns are absent~\citep{yb-test-anti};
+  * Mutation coverage is controlled~\citep{andrews2006using};
+
+\subsection{M4: Static Analysis (W=0.8)}
+
+The metric validates the existence of static analysis in the project
+and its mandatory usage as part of the build pipeline.
+There are many well-known tools on the market, both commercial and
+open source, which can be used by the project. The metric doesn't judge
+the quality of the tools, but pays attention to how strict is the
+confirmation of the tools being used. For example, a team may use Checkstyle
+to validate their Java code, but configured to use only a few checks
+out of a few hundred shipped by the creators of Checkstyle.
+
+\subsection{M5: Discipline (W=0.6)}
+
+This metric evaluates the process of the software
+development. It discovers problems much more related to the team than
+to the product under development. It also demonstrates how strongly the project is
+protected against human mistakes. Most software development teams use
+Version Control Systems (VCS) and Continious Integration/Delivery (CI/CD) systems, but not all
+software engineers properly understand their functionality. For example, this is what
+a reviewer must pay attention to:
+
+  * CI/CD pipelines are automated;
+  * Release procedure is automated;
+  * Releases are frequent and fully documented;
+  * Git commits have detailed comments;
+  * Each code change is traceable to a bug report or a task;
+  * All changes get into the trunk after manual reviews;
+  * The trunk (e.g. Git ``master'' branch) is read-only;
+  * Forced ``push'' is not used and code is never deleted;
+
+The metric doesn't judge the choice of the tools (sometimes this decision
+is not made by the team itself), but only validates the correctness
+of their usage.
+
+\subsection{M6: Documentation (W=0.5)}
+
+There are different types of documentation a software project may have,
+starting from inline code comments to developers guidelines and user manuals.
+The existing of the documentation may be cheched with automated tools,
+but only a human expert can understand whether the documentation is truly
+informative and useful.
+
+\section{Discussion}
+\label{sec:discussion}
+
+To be written...
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{main}
+
+\end{document}
