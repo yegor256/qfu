@@ -19,20 +19,27 @@
 % LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 % OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 % SOFTWARE.
-\documentclass[manuscript,12pt,nonacm=true,oneside]{acmart}
+\documentclass[12pt,oneside]{article}
 \title{A Multi-Factor Method of Measuring the Quality of a Software Project}
-\author{Yegor Bugayenko}
-\email{yegor.bugayenko@huawei.com}
-\author{Ilya Moskvitin}
-\email{ilya.moskvitin@huawei.com}
-\authorsaddresses{}
+\author{Yegor Bugayenko, Ilya Moskvitin}
 
 \usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+  \hypersetup{colorlinks=true,allcolors=blue!40!black}
+\usepackage{hyperref}
 \usepackage{amsmath}
+\usepackage{enumitem}
+\setlist{nosep}
 \begin{document}
+\raggedbottom
 \setlength{\topskip}{6pt}
 \setlength{\parindent}{0pt} % indent first line
 \setlength{\parskip}{6pt} % before par
+
+\maketitle
 
 \begin{abstract}
 Quality is a complex attribute of a software product. It consists of
@@ -47,7 +54,6 @@ maintainability, and give programmers effective recommendations on
 how maintainability issues can be fixed. A method of this kind is proposed
 below.
 \end{abstract}
-\maketitle
 
 \section{Introduction}
 
@@ -62,7 +68,7 @@ open source and commercial. It was first proposed by~\citet{yb-sins}
 as a method of measuring the quality of open source projects developed
 by freelancers. Since then, over 200 GitHub repositories were
 analyzed by over 40 reviewers and their analysis results were published
-at~\citep{yb-award}.
+by~\citet{yb-award}.
 
 The paper is organized as follows.
 Section~\ref{sec:related} covers related work in the area of quality analysis
@@ -75,7 +81,13 @@ alternatives to the metrics explained in the Section~\ref{sec:method}.
 \section{Related Work}
 \label{sec:related}
 
-To be written...
+There are many software experts who believe that quality of code is the
+most important success factor of a software project.
+For example,~\citet{martin2009clean} believes that ``it is not enough for code to work,''
+it must also be easy to maintain and extend.
+\citet{mcconnell2004code} says that ``in the vast majority of systems, efficiency isn't critical,''
+meaning that maintainability and other non-performance and non-functional
+qualities very often are much more critical.
 
 \section{Method}
 \label{sec:method}
@@ -117,44 +129,47 @@ and so on. This is an incomplete lists of checks to do:
 \item Exceptions are not swallowed;
 \item Objects are thread-safe, where necessary;
 \item Language naming conventions are obeyed;
-\item The usage of NULL references is minimized~\citet{yb-null};
-\item There are no redundant empty lines~\citet{yb-empty-lines};
+\item Inbound method arguments are validated for NULL;
+\item The usage of NULL references is minimized~\citep{yb-null};
+\item There are no redundant empty lines~\citep{yb-empty-lines};
 \item There are no redundant exception catchers~\citep{yb-dont-catch}.
 \end{itemize}
 
 \subsection{M2: Architecture and Design (W=1.0)}
 
-The metric evaluate how sould are the key technical decisions made
+The metric evaluates how sound are the key technical decisions made
 in the project. It is assumed that the best technical decision is the
 one that leads to the most maintainable software, which will be easier
-to modify, read, and support. This is an incomplete lists of
+to modify, read, and support in the future. This is an incomplete lists of
 checks to do:
 
 \begin{itemize}
 \item Design patterns are used correctly~\citep{gamma1993design,holub2004holub,freeman2008head,fowler2003patterns};
 \item Anti-patterns are absent~\citep{jaafar2013mining};
 \item Classes are short and their cohesion is high;
-\item Frameworks are used where possible;
+\item Frameworks are used where possible, instead of custom code;
 \item Procedural anti-patterns are avoided in OOP code~\citep{yb-er};
-\item Explicit class casting is being avoided~\citep{yb-casting};
+\item Explicit class casting is avoided~\citep{yb-casting};
+\item The usage of static methods is minimized~\citep{yb-static};
 \item The usage of getters and setters is minimal~\citep{yb-getters};
 \item Objects are immutable where possible~\citep{yb-immutability};
 \item There are no global variables~\citep{yb-global-vars};
 \item DTO usage is minimized~\citep{yb-dto};
-\item Utility classes are not used~\citet{yb-utility}.
+\item Utility classes are not used~\citep{yb-utility}.
 \end{itemize}
 
 \subsection{M3: Test Coverage (W=0.8)}
 
-There are many different tool on the market to estimate test code coverage,
-create unit and integration tests, and improve the quality of code using
-the information provided by test coverage collectors. The metric judges
+There are many different tool on the market to create unit and integration tests,
+estimate test code coverage, and improve the quality of code using
+the information provided by test coverage collectors. This metric judges
 the quality of tests and the existence of test coverage analysis. A reviewer
 must pay attention to the following practices:
 
 \begin{itemize}
   \item Unit and integration tests are written;
-  \item Test coverage is calculated on each build, and published;
+  \item Low test coverage breaks the build;
+  \item Test coverage is published;
   \item Test anti-patterns are absent~\citep{yb-test-anti};
   \item Mutation coverage is controlled~\citep{andrews2006using}.
 \end{itemize}
