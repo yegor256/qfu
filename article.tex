@@ -25,17 +25,19 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
+  \setlength\bibsep{0pt}
+  \citeindextrue
+  \setcitestyle{square,numbers}
+  \bibliographystyle{abbrvnat}
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{hyperref}
-  \hypersetup{colorlinks=true,allcolors=blue!40!black}
-\usepackage{hyperref}
+  \hypersetup{colorlinks=true,allcolors=blue!60!black}
 \usepackage{amsmath}
 \usepackage{enumitem}
 \setlist{nosep}
 \begin{document}
 \raggedbottom
-\raggedright
 \setlength{\topskip}{6pt}
 \setlength{\parindent}{0pt} % indent first line
 \setlength{\parskip}{6pt} % before par
@@ -107,7 +109,7 @@ The final \emph{score} is calculated
 as a weighed arithmetic summary of all measurements $M_i$:
 
 \begin{align}
-S = \frac{\sum_i^N M_i \times W_i}{\sum_i^N W_i}
+S = \frac{\sum_i^N M_i \times W_i}{2 \times \sum_i^N W_i} \in [0..5]
 \end{align}
 
 A group of at least two independent software developers is asked to review the code
@@ -150,6 +152,7 @@ checks to do:
 \item Anti-patterns are absent~\citep{jaafar2013mining};
 \item Classes are short and their cohesion is high~\citep[pp.93-95]{e01};
 \item Frameworks are used where possible, instead of custom code;
+\item Where possible, the latests versions of frameworks are used;
 \item Procedural anti-patterns are avoided in OOP code~\citep[pp.19-26]{e01};
 \item Aspect programming is used properly~\citep[pp.210--212]{e01};
 \item Annotations are used when needed~\citep[pp.163]{eo2};
@@ -185,8 +188,17 @@ must pay attention to the following practices:
 The metric validates the existence of static analysis in the project
 and its mandatory usage as part of the build pipeline.
 There are many well-known tools on the market, both commercial and
-open source, which can be used by the project. The metric doesn't judge
-the quality of the tools, but pays attention to how strict is the
+open source, which can be used by the project. These tools are recommended:
+
+\begin{itemize}
+  \item Java: Checkstyle~\citep{checkstyle}, PMD, SpotBugs
+  \item C++: cpplint, cppcheck
+  \item Ruby: Rubocop~\citep{rubocop}
+  \item JavaScript: ESLint
+  \item Python: flake8
+\end{itemize}
+
+The metric doesn't judge the quality of the tools, but pays attention to how strict is the
 confirmation of the tools being used. For example, a team may use Checkstyle
 to validate their Java code, but configured to use only a few checks
 out of a few hundred shipped by the creators of Checkstyle.
@@ -229,21 +241,24 @@ There are different types of documentation a software project may have,
 starting from inline code comments to developers guidelines and user manuals.
 The existing of the documentation may be checked with automated tools,
 but only a human expert can understand whether the documentation is truly
-informative and useful. A reviewer must pay attention to the following points:
+informative and useful. The following tools are recommended to use:
 
 \begin{itemize}
   \item Repository contains information about project and it's usage;
-  \item Code is documented well;
   \item Code documented according to modern principals and standards;
   \item Special tools and frameworks are used to process documentation.
+  \item Java: Javadoc
+  \item C++: Doxygen, Sphinx
+  \item Ruby: Rdoc
+  \item Python: Pydoc
 \end{itemize}
 
 \section{Discussion}
 \label{sec:discussion}
 
-To be written...
+To be written later...
 
-\bibliographystyle{ACM-Reference-Format}
+\raggedright
 \bibliography{main}
 
 \end{document}
