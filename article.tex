@@ -136,6 +136,7 @@ and so on. This is an incomplete lists of checks to do:
 \item The usage of NULL references is minimized~\citep{yb-null};
 \item There are no redundant empty lines~\citep{yb-empty-lines};
 \item There are no redundant exception catchers~\citep{yb-dont-catch}.
+\item There are no busy waitings~\citep{so-busywait}.
 \end{itemize}
 
 \subsection{M2: Architecture and Design (W=1.0)}
@@ -160,6 +161,8 @@ checks to do:
 \item There are no global variables~\citep{yb-global-vars};
 \item DTO usage is minimized~\citep{yb-dto};
 \item Utility classes are not used~\citep{yb-utility}.
+\item No ciclic dependencies.
+\item Proper project folders and modules structure.
 \end{itemize}
 
 \subsection{M3: Test Coverage (W=0.8)}
