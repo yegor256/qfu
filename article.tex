@@ -126,14 +126,14 @@ declaration of variables and constants,
 and so on. This is an incomplete lists of checks to do:
 
 \begin{itemize}
-\item There are no empty exception handlers;
-\item Exceptions are not swallowed;
-\item Objects are thread-safe, where necessary;
+\item There are no empty exception handlers~\citep[pp.205--208]{eo1};
+\item Exceptions are not swallowed~\citep[pp.212]{eo1};
+\item There are no redundant exception catchers~\citep[pp.202]{eo1};
+\item Objects are thread-safe, where necessary~\citep[pp.89-93]{eo1};
 \item Language naming conventions are obeyed;
-\item Inbound method arguments are validated for NULL;
-\item The usage of NULL references is minimized~\citep{yb-null};
+\item Inbound method arguments are validated for NULL~\citep[pp.146-153]{eo1};
+\item The usage of NULL references is minimized~\citep[pp.87--89]{eo1};
 \item There are no redundant empty lines~\citep{yb-empty-lines};
-\item There are no redundant exception catchers~\citep{yb-dont-catch}.
 \item There are no busy waitings~\citep{so-busywait}.
 \end{itemize}
 
@@ -148,17 +148,19 @@ checks to do:
 \begin{itemize}
 \item Design patterns are used correctly~\citep{gamma1993design,holub2004holub,freeman2008head,fowler2003patterns};
 \item Anti-patterns are absent~\citep{jaafar2013mining};
-\item Classes are short and their cohesion is high;
+\item Classes are short and their cohesion is high~\citep[pp.93-95]{e01};
 \item Frameworks are used where possible, instead of custom code;
-\item Procedural anti-patterns are avoided in OOP code~\citep{yb-er};
-\item Explicit class casting is avoided~\citep{yb-casting};
-\item The usage of static methods is minimized~\citep{yb-static};
-\item The usage of getters and setters is minimal~\citep{yb-getters};
-\item Objects are immutable where possible~\citep{yb-immutability};
+\item Procedural anti-patterns are avoided in OOP code~\citep[pp.19-26]{e01};
+\item Aspect programming is used properly~\citep[pp.210--212]{e01};
+\item Annotations are used when needed~\citep[pp.163]{eo2};
+\item Explicit class casting is avoided~\citep[pp.181--186]{eo2};
+\item The usage of static methods is minimized~\citep[pp.117--145]{eo2};
+\item The usage of getters and setters is minimal~\citep[pp.165--174]{eo1};
+\item Objects are immutable where possible~\citep[pp.78--89]{eo2};
 \item There are no global variables~\citep{yb-global-vars};
-\item DTO usage is minimized~\citep{yb-dto};
-\item Utility classes are not used~\citep{yb-utility}.
-\item No ciclic dependencies.
+\item DTO usage is minimized~\citep[pp.179]{eo2};
+\item Utility classes are not used~\citep[pp.40]{eo2};
+\item No ciclic dependencies;
 \item Proper project folders and modules structure.
 \end{itemize}
 
@@ -189,6 +191,13 @@ confirmation of the tools being used. For example, a team may use Checkstyle
 to validate their Java code, but configured to use only a few checks
 out of a few hundred shipped by the creators of Checkstyle.
 
+\begin{itemize}
+  \item Code duplications are avoided~\citep[pp.39--40]{eo2};
+  \item Checkstyle tools are used;
+  \item Only determined imports are used;
+  \item Return values of non-void methods are always used;
+\end{itemize}
+
 \subsection{M5: Discipline (W=0.6)}
 
 This metric evaluates the process of the software
@@ -218,9 +227,16 @@ of their usage.
 
 There are different types of documentation a software project may have,
 starting from inline code comments to developers guidelines and user manuals.
-The existing of the documentation may be cheched with automated tools,
+The existing of the documentation may be checked with automated tools,
 but only a human expert can understand whether the documentation is truly
-informative and useful.
+informative and useful. A reviewer must pay attention to the following points:
+
+\begin{itemize}
+  \item Repository contains information about project and it's usage;
+  \item Code is documented well;
+  \item Code documented according to modern principals and standards;
+  \item Special tools and frameworks are used to process documentation.
+\end{itemize}
 
 \section{Discussion}
 \label{sec:discussion}
