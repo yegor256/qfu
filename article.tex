@@ -109,7 +109,7 @@ The final \emph{score} is calculated
 as a weighed arithmetic summary of all measurements $M_i$:
 
 \begin{align}
-S = \frac{\sum_i^N M_i \times W_i}{2 \times \sum_i^N W_i} \in [0..5]
+S = \frac{\sum_i^N M_i \times W_i}{\sum_i^N W_i} \in [0..10]
 \end{align}
 
 A group of at least two independent software developers is asked to review the code
@@ -150,20 +150,20 @@ checks to do:
 \begin{itemize}
 \item Design patterns are used correctly~\citep{gamma1993design,holub2004holub,freeman2008head,fowler2003patterns};
 \item Anti-patterns are absent~\citep{jaafar2013mining};
-\item Classes are short and their cohesion is high~\citep[pp.93-95]{e01};
+\item Classes are short and their cohesion is high~\citep[pp.93--95]{eo1};
 \item Frameworks are used where possible, instead of custom code;
-\item Where possible, the latests versions of frameworks are used;
-\item Procedural anti-patterns are avoided in OOP code~\citep[pp.19-26]{e01};
-\item Aspect programming is used properly~\citep[pp.210--212]{e01};
+\item Where possible, the latest versions of frameworks are used;
+\item Procedural anti-patterns are avoided in OOP code~\citep[pp.19--26]{eo1};
+\item Aspect programming is used properly~\citep[pp.210--212]{eo1};
 \item Annotations are used when needed~\citep[pp.163]{eo2};
 \item Explicit class casting is avoided~\citep[pp.181--186]{eo2};
 \item The usage of static methods is minimized~\citep[pp.117--145]{eo2};
 \item The usage of getters and setters is minimal~\citep[pp.165--174]{eo1};
 \item Objects are immutable where possible~\citep[pp.78--89]{eo2};
 \item There are no global variables~\citep{yb-global-vars};
-\item DTO usage is minimized~\citep[pp.179]{eo2};
-\item Utility classes are not used~\citep[pp.40]{eo2};
-\item No ciclic dependencies;
+\item DTO usage is minimized~\citep[p.179]{eo2};
+\item Utility classes are not used~\citep[p.40]{eo2};
+\item No cyclic dependencies;
 \item Proper project folders and modules structure.
 \end{itemize}
 
