@@ -122,7 +122,7 @@ The following metrics are used in the method:
 
 This metric is one of the most important for the code quality and error-proneness.
 It is supposed to spot mistakes in exception handling, resource allocation, memory overflow control,
-naming conventions, classe and method length control, code complexity,
+naming conventions, class and method length control, code complexity,
 validity of call chains, validation of input method parameters,
 declaration of variables and constants,
 and so on. This is an incomplete lists of checks to do:
@@ -217,18 +217,17 @@ This metric evaluates the process of the software
 development. It discovers problems much more related to the team than
 to the product under development. It also demonstrates how strongly the project is
 protected against human mistakes. Most software development teams use
-Version Control Systems (VCS) and Continious Integration/Delivery (CI/CD) systems, but not all
-software engineers properly understand their functionality. For example, this is what
+Version Control Systems (VCS)~\citep{spinellis2005vcs, loeliger2012git} and Continuous Integration/Delivery (CI/CD) systems~\citep{mf-ci, miller2008ci}, but not all software engineers properly understand their functionality. For example, this is what
 a reviewer must pay attention to:
 
 \begin{itemize}
   \item CI/CD pipelines are automated;
   \item Release procedure is automated;
   \item Releases are frequent and fully documented;
-  \item Git commits have detailed comments;
+  \item Git commits have detailed comments~\citep[pp.65--66]{loeliger2012git};
   \item Each code change is traceable to a bug report or a task;
   \item All changes get into the trunk after manual reviews;
-  \item The trunk (e.g. Git ``master'' branch) is read-only;
+  \item The trunk (e.g. Git ``master'' branch) is read-only~\citep[pp.65--66]{pidoux2014git};
   \item Forced ``push'' is not used and code is never deleted;
 \end{itemize}
 
@@ -248,11 +247,16 @@ informative and useful. The following tools are recommended to use:
   \item Repository contains information about project and it's usage;
   \item Code documented according to modern principals and standards;
   \item Special tools and frameworks are used to process documentation.
-  \item Java: Javadoc
+  \item Java: Javadoc, Swagger
   \item C++: Doxygen, Sphinx
   \item Ruby: Rdoc
   \item Python: Pydoc
 \end{itemize}
+
+\section{Summary}
+\label{sec:summary}
+
+To be written later...
 
 \section{Discussion}
 \label{sec:discussion}
