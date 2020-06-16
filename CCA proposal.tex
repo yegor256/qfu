@@ -1,0 +1,101 @@
+\documentclass[12pt,oneside]{article}
+\title{Clean Code Audit enhancement proposal}
+\author{Ilya Moskvitin}
+
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+  \setlength\bibsep{0pt}
+  \citeindextrue
+  \setcitestyle{square,numbers}
+  \bibliographystyle{abbrvnat}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+  \hypersetup{colorlinks=true,allcolors=blue!60!black}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\setlist{nosep}
+\begin{document}
+\raggedbottom
+\setlength{\topskip}{6pt}
+\setlength{\parindent}{0pt} % indent first line
+\setlength{\parskip}{6pt} % before par
+
+\maketitle
+
+% \begin{abstract}
+
+% \end{abstract}
+
+\section{Prehistory}
+\label{sec:prehistory}
+Time ago Huawei has started Clean Code initiative. At the moment, the recommendations are written based on the modern market practices and standards, and published at internal resource.
+
+In the end of last year we did the first step of our own cross-team Clean Code reviews to find out the common mistakes and often-used anti-patterns of the software development.
+
+\section{Story}
+\label{sec:story}
+
+In a three months, we collected such metrics and found, the most of recommendations from Huawei Clean Code are ignored and violated. Probably, not enough teams are even know about that or at least have a good understanding, how to implement recommendations correctly. Power of github is used by teams very poor. Feels the lac of knowledge and experience. Also, most of projects are not ready to be supported or maintained outside of China. According to our estimations, no one project has reached 70\% of maximum possible score, and most of them had a very limited quality.
+CCA team published the personal reports with description of found issues. In next three months we repeated  review of a few projects we sent reports previous time. I can proud, 80\% of teams paid required attention to our recommendations and made significant improvements of their codebase - up to 75\% of issues found before were fixed. It means, we did all right. Now it's time to share this practice with bigger community.
+
+\subsection{How does it work now}
+Group of experts does blind review of the projects. Automated tools are using to find weak places and look deeper manually. Metrics calculates one per quarter and publish as total chart. Winner teams may be rewarded to motivate them keep the right direction and go further.
+Pros: Manual review is the only way to estimate such things as architecture and design, meaningful object naming and documentation.
+Cons: Existing tools have very limited functionality, some projects are placed in restricted areas and not allowed to be reviewed.
+	
+\subsection{How it must work}
+	Every department or BU provides it's projects for review and reviewers to do cross-department code review. Specialists will be trained by project leader on the preparation stage.
+	Every review must have two steps: automated test and manual audit. First phase is to ran special tools to calculate multi-factor quality rank. If score is higher then predefined limit the project  has good enough quality to be recommended for the second phase - review by humans.
+	The total chart contains all reviewed projects and keeps the actual state.
+	Data Science technologies might be used for fine-grained, all-side analysis.
+
+\section{Main goals}
+\label{sec:goals}
+
+\begin{itemize}
+\item Internal collaboration:
+    \subitem Rise up developer skills. Describe the Quality is readability + maintainability.
+	
+\item External effect and brand placement:
+	\subitem  Market impact. Tool to estimate quality of the software.
+	\subitem  Universities collaboration.
+	\subitem  Huawei is a provider of the good quality open source code.
+	\subitem  Conferences and science papers.
+\end{itemize}
+
+\section{Timeline}
+\label{sec:timeline}
+
+Let's keep close to real life.
+
+In the last 6 months we did audit for all 36 java projects of Application Platform, presented in github.huawei.com, which big enough and actively developing now. Five of them chosen at random we reviewed second time. There is no more projects allowed to review in Application Platform where we have an access. Results are exciting. We want, we can and we must do more.
+	
+Step 1. Preparation.
+\begin{itemize}
+\item Provide a guide for quality estimation. [1 week]
+\item Get contacts with other departments to choose projects for audit and reviewers to participate. [1 week, depends on management]
+\item Organize training for reviewers. [few days, depends on their work schedule and communication process]
+\item Request and get a read-only access to repositories for all involved persons. [few days]
+\item Prepare a schedule for the review, templates of reports, data collection storage. [1 week]
+\end{itemize}
+
+Step 2. Job (Quarterly).
+\begin{itemize}
+\item Do cross-department double-blind review. Nice to have hundred or more repositories.
+\item Collect results, calculate score, prepare the final chart.
+\item In case of using internal software (I.E. Aibolit from System Programming lab) provide the feedback to development teams.
+\item Do research across collected data, find dependencies, explain them and describe on science papers.
+\item Prepare and publish the total chart and send personalized results for development teams of reviewed repositories to help them improve their services.
+\item Organize a Clean Code event to show for all who interested the common problems and methods of it's solving.
+\end{itemize}
+
+Step 3. Taking the hill. Brand guarding.
+\begin{itemize}
+\item Make Clean Code events regular, motivate teams to participate (winners should re rewarded with money and fame) [1 year]
+\item Rise up the internal code quality to the open-source quality level. [infinite process]
+\item Request a 'veto right' to publish solution as open source under Huawei brand without approval from Quality Control Committee. [as will be ready, depends on trust of people]
+\end{itemize}
+
+\raggedright
+\end{document}
