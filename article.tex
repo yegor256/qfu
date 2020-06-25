@@ -90,7 +90,7 @@ For example,~\citet{martin2009clean} believes that ``it is not enough for code t
 it must also be easy to maintain and extend.
 \citet{mcconnell2004code} says that ``in the vast majority of systems, efficiency isn't critical,''
 meaning that maintainability and other non-performance and non-functional
-qualities very often are much more critical.
+qualities very often are much more critical. \citet{cj-mess} writes about many different metrics for project quality estimation, but even popular ``design, code, and unit test'' contains only about 30\% of total software effort.
 
 \section{Method}
 \label{sec:method}
@@ -105,6 +105,7 @@ M_{1..N} \in [ 0 .. 10 ]
 \end{eqnarray}
 
 Each metric has its own \emph{weight} $W_{1..N}$.
+The idea to divide metric by weight became from automated tools. Those metrics which are not possible to measure automatically have weight equals $1$, those which partially can be calculated with tools have decreased weight to $0.8$. Last two metrics are not blockers for release of the project, but also protect against bugs, what important for overall quality. Good delivery discipline helps to catch weak places and protect release version. Documentation is related to Defect Removal Efficiency ~\citep{cj-sqin2012,cj-mess} as effective metric~\citep{marandi2014dre}. And can decrease number of defects and time to repair ~\citep[pp.265--266]{jones2012economics}
 The final \emph{score} is calculated
 as a weighed arithmetic summary of all measurements $M_i$:
 
@@ -112,9 +113,7 @@ as a weighed arithmetic summary of all measurements $M_i$:
 S = \frac{\sum_i^N M_i \times W_i}{\sum_i^N W_i} \in [0..10]
 \end{align}
 
-A group of at least two independent software developers is asked to review the code
-repository and provide their scores as $S_1$ and $S_2$. The average between
-them is the final score of the project.
+A group of at least two independent software developers is asked to review the code repository and provide their scores as $S_1$ and $S_2$. The average between them is the final score of the project.
 
 The following metrics are used in the method:
 
