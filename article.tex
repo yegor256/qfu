@@ -23,6 +23,8 @@
 \title{A Multi-Factor Method of Measuring the Quality of a Software Project}
 \author{Yegor Bugayenko, Ilya Moskvitin}
 
+\usepackage{setspace}
+\onehalfspacing
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
   \setlength\bibsep{0pt}
@@ -57,41 +59,40 @@ maintainability, and give programmers effective recommendations on
 how maintainability issues can be fixed. A method of this kind is proposed
 below.
 \end{abstract}
-
 \section{Introduction}
 
 The suggested method may be used to analyze the quality
 of a software project, taking into account a few important
 measurable factors, such as consistency and effectiveness of
 used programming practices, soundness and solidness of the
-architecture, quality of documentation, and so on.
-
+architecture, quality of documentation, and so on.\par
 The method has been tested on a number of projects, both
 open source and commercial. It was first proposed by~\citet{yb-sins}
 as a method of measuring the quality of open source projects developed
 by freelancers. Since then, over 200 GitHub repositories were
 analyzed by over 40 reviewers and their analysis results were published
-by~\citet{yb-award}.
-
+by~\citet{yb-award}.\par
 The paper is organized as follows.
-Section~\ref{sec:related} covers related work in the area of quality analysis
-of software projects.
-Section~\ref{sec:method} explains the method, giving instructions
-to project reviewers.
-Finally, Section~\ref{sec:discussion} identifies validity threats and suggests
-alternatives to the metrics explained in the Section~\ref{sec:method}.
+Section~\ref{sec:related} covers related work in the area of quality analysis of software projects.
+Section~\ref{sec:method} explains the method, giving instructions to project reviewers.
+Finally, Section~\ref{sec:results} identifies validity threats and suggests alternatives to the metrics explained in the Section~\ref{sec:method}.
 
 \section{Related Work}
 \label{sec:related}
 
 There are many software experts who believe that quality of code is the
 most important success factor of a software project.
-For example,~\citet{martin2009clean} believes that ``it is not enough for code to work,''
-it must also be easy to maintain and extend.
+For example,~\citet{martin2009clean} believes that ``it is not enough for code to work,'' it must also be easy to maintain and extend.
 \citet{mcconnell2004code} says that ``in the vast majority of systems, efficiency isn't critical,''
 meaning that maintainability and other non-performance and non-functional
-qualities very often are much more critical.
+qualities very often are much more critical. Many experts have tried to discover the method to measure code quality.
+\citet{cj-mess} writes about many different metrics for project quality estimation, but even popular ``design, code, and unit test'' contains only about 30\% of total software effort. Many researches (\citet{chall1995formula}, \citet{hunt2002arch}) agree that one of the main factors of the code quality is readability. \citet{rugaber2000use} writes ``as currently practiced, program understanding [e.g., for maintenance] consists mainly of code reading''. \citet{gamma1994reuse} highlights the importance of reusing the code. \citet{collar2006reuse} says ``Improving the readability of code may increase the chances of the code being reused.''
+Good delivery discipline could help to find weak places and protect release version. Documentation is related to Defect Removal Efficiency ~\citep{cj-sqin2012,cj-mess} as effective metric~\citep{marandi2014dre}. And can cut down the number of defects and time to repair ~\citep[pp.265--266]{jones2012economics}.\par
 
+Experts from \citet{pf-wp-whichmetricsmatter} determined a set of factors affect the quality and related to each other.
+Most of mentioned metrics are operate with a feedback from customers~\citep{marandi2014dre}, both internal (QA team, pre-sales teams) and external (real customers)~\cite{jones2012economics}. Also, metrics can measure portability dependent on programming language and frameworks. Both functional and non-functional requirements matching~\cite{cj-mess} is very important.\par
+As there are so many points of view what factor is most important, and too different metrics have been tested, we decided to distinct sensitive factors on design and development stage~\cite{rani2017sdlc}. All reviewed projects are written in java and we can expect an equal portability and flexibility at language level.\par
+This paper must answer the question from Section~\ref{sec:hypothesis}: which factor is most important for code quality: right architecture, high level of readability, test coverage or something else.\par
 \section{Method}
 \label{sec:method}
 
@@ -105,6 +106,7 @@ M_{1..N} \in [ 0 .. 10 ]
 \end{eqnarray}
 
 Each metric has its own \emph{weight} $W_{1..N}$.
+The idea to divide metric by weight became from automated tools. Those metrics which are not possible to measure automatically have weight equals $1$, those which partially can be calculated with tools have decreased weight to $0.8$. Last two metrics are not blockers for release of the project, but also protect against bugs, what important for overall quality. Good delivery discipline helps to catch weak places and protect release version. Documentation is related to Defect Removal Efficiency ~\citep{cj-sqin2012,cj-mess} as effective metric~\citep{marandi2014dre}. And can decrease number of defects and time to repair ~\citep[pp.265--266]{jones2012economics}
 The final \emph{score} is calculated
 as a weighed arithmetic summary of all measurements $M_i$:
 
@@ -112,9 +114,7 @@ as a weighed arithmetic summary of all measurements $M_i$:
 S = \frac{\sum_i^N M_i \times W_i}{\sum_i^N W_i} \in [0..10]
 \end{align}
 
-A group of at least two independent software developers is asked to review the code
-repository and provide their scores as $S_1$ and $S_2$. The average between
-them is the final score of the project.
+A group of at least two independent software developers is asked to review the code repository and provide their scores as $S_1$ and $S_2$. The average between them is the final score of the project.
 
 The following metrics are used in the method:
 
@@ -253,15 +253,10 @@ informative and useful. The following tools are recommended to use:
   \item Python: Pydoc
 \end{itemize}
 
-\section{Summary}
-\label{sec:summary}
-
-To be written later...
-
 \section{Discussion}
 \label{sec:discussion}
 
-To be written later...
+Next step is to apply suggested method to production code and search correlation between final score and concrete metrics. The goal is to find metrics which are most important for the total quality. It might help teams to improve code and development process.
 
 \raggedright
 \bibliography{main}
